@@ -14,15 +14,24 @@ class InstanceSegmentation:
         Initialize the Instance Segmentation model using Detectron2.
         
         Args:
-            model_path (str): Path to the PointRend model weights (.pkl file)
+            model_path (str): Path to the model weights (.pkl file)
         """
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
         # Setup Detectron2 configuration
         self.cfg = get_cfg()
         
-        # Use PointRend configuration
-        self.cfg.merge_from_file(model_zoo.get_config_file("PointRend/pointrend_rcnn_R_50_FPN_3x_coco.yaml"))
+        # Auto-detect model type and use appropriate configuration
+        model_name = os.path.basename(model_path).lower()
+        
+        if "pointrend" in model_name or "pointtrend" in model_name:
+            # For PointRend models, use Mask R-CNN as base since PointRend isn't in main model zoo
+            print("PointRend model detected, using Mask R-CNN configuration as base...")
+            self.cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
+        else:
+            # For other models, use standard Mask R-CNN
+            print("Using Mask R-CNN configuration...")
+            self.cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
         
         # Set model weights path
         self.cfg.MODEL.WEIGHTS = model_path
