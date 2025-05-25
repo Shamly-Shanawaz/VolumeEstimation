@@ -114,6 +114,10 @@ def get_volume_estimator():
             return estimator
         except Exception as e:
             print(f"Error during model initialization: {str(e)}")
+            print(f"Error type: {type(e).__name__}")
+            import traceback
+            print("Full traceback:")
+            traceback.print_exc()
             raise
             
     except Exception as e:

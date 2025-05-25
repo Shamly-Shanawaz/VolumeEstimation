@@ -4,13 +4,31 @@ This project estimates the volume of objects in images using deep learning model
 
 ## Features
 
-- Instance segmentation using PointRend
+- Instance segmentation using PointRend (via Detectron2)
 - Depth estimation using MiDaS/DPT models
 - Volume calculation for detected objects
 - Support for multiple depth estimation models
 - Easy-to-use API for volume estimation
+- Google Colab compatible
 
 ## Installation
+
+### For Google Colab (Recommended)
+
+1. Clone the repository:
+```bash
+!git clone https://github.com/yourusername/VolumeEstimation.git
+%cd VolumeEstimation
+```
+
+2. Run the Colab installation script:
+```python
+!python install_colab.py
+```
+
+3. Mount Google Drive and ensure your model files are in `/content/drive/My Drive/model_weights/`
+
+### For Local Installation
 
 1. Clone the repository:
 ```bash
@@ -76,4 +94,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - PointRend model from Facebook AI Research
 - MiDaS and DPT models from Intel ISL
-- PixelLib library for instance segmentation 
+- Detectron2 library for instance segmentation
+- Facebook AI Research for Detectron2 framework 
