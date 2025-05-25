@@ -3,8 +3,8 @@ import torch
 import numpy as np
 from PIL import Image
 import cv2
-from .depth_estimation import DepthEstimator
-from .segmentation import InstanceSegmentation
+from src.depth_estimation import DepthEstimator
+from src.segmentation import InstanceSegmentation
 
 class VolumeEstimator:
     def __init__(self, segmentation_model_path, depth_model_path, depth_model_type="dpt_hybrid"):
